@@ -53,8 +53,21 @@ export class AppService {
       function: 'GLOBAL_QUOTE',
       symbol: params.symbol,
     });
+    const result = await axios.default.get(url);
+    const data = result.data['Global Quote'] ?? {};
 
-    return axios.default.get(url).then((result) => result.data['Global Quote']);
+    return {
+      symbol: data['01. symbol'],
+      open: Number(data['02. open']),
+      high: Number(data['03. high']),
+      low: Number(data['04. low']),
+      price: Number(data['05. price']),
+      volume: Number(data['06. volume']),
+      latestTradingDay: data['07. latest trading day'],
+      previousClose: Number(data['08. previous close']),
+      change: Number(data['09. change']),
+      changePercent: data['10. change percent'],
+    };
   };
 
   intraday = async (params: IntradayParams): Promise<Quote> => {
