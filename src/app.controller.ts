@@ -24,7 +24,7 @@ export class AppController {
   }
 
   @Get('/monthly')
-  monthly(@Body() params: IntradayParams) {
+  monthly(@Body() params: SymbolParams) {
     return this.appService.monthly(params);
   }
 }
